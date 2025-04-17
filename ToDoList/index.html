@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h2>To-Do List</h2>
+    <input id="taskInput" type="text" placeholder="Add a task" />
+    <button class="add-btn" onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = [];
+
+    function renderTasks() {
+      const taskList = document.getElementById("taskList");
+      taskList.innerHTML = "";
+
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerText = task;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.innerText = "❌";
+        removeBtn.onclick = () => removeTask(index);
+
+        li.appendChild(removeBtn);
+        taskList.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const task = input.value.trim();
+      if (task === "") return;
+
+      tasks.push(task);
+      input.value = "";
+      renderTasks();
+    }
+
+    function removeTask(index) {
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+  </script>
+</body>
+</html>
